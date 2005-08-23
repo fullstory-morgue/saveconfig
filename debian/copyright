@@ -1,0 +1,10 @@
+This package was debianized by Klaus Knopper <knoppix@knopper.net> on
+Fri, 29 Mar 2002 20:19:15 +0100.
+
+It was downloaded from http://www.knopper.net/knoppix/sources/
+
+Upstream Author: Klaus Knopper <knoppix@knopper.net>
+                    saveconfig*.png is part of the KDE/ kdelibs-data (crystal)
+		    icon set, appropriate license applies (GPL).
+
+Copyright: GPL, see /usr/share/common-licenses

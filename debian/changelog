@@ -1,0 +1,106 @@
+saveconfig-kanotix (0.5.16) unstable; urgency=low
+
+  * overhaul packaging.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 23 Aug 2005 18:30:34 +0200
+
+saveconfig-kanotix (0.5.15) unstable; urgency=low
+
+  * remove Knoppix branding.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 21 Jun 2005 21:48:26 +0200
+
+saveconfig-kanotix (0.5.14) unstable; urgency=low
+
+  * switch to kanotix-su.
+  * improve packaging.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 31 Mar 2005 15:08:44 +0200
+
+saveconfig-kanotix (0.5-13) unstable; urgency=low
+
+  * forked for Kanotix XDG compatibilty.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 15 Dec 2004 20:00:53 +0100
+
+saveconfig-knoppix (0.5-13) unstable; urgency=low
+
+  * Added removal of single quotes in options via sed
+
+ -- Klaus Knopper <knoppix@knopper.net>  Sun,  9 May 2004 22:07:46 +0200
+
+saveconfig-knoppix (0.5-12) unstable; urgency=low
+
+  * Add evolution files
+
+ -- Klaus Knopper <knoppix@knopper.net>  Sun, 23 Feb 2003 19:55:44 +0100
+
+saveconfig-knoppix (0.5-11) unstable; urgency=low
+
+  * Ask for directory for saving data
+
+ -- Klaus Knopper <knoppix@knopper.net>  Sun,  9 Feb 2003 03:58:24 +0100
+
+saveconfig-knoppix (0.5-10) unstable; urgency=low
+
+  * Spanish translation by Luis Llorente, luis.llorente@hispalinux.es
+  * Added /etc/sysconfig/isdn and /etc/sysconfig/provider to network files
+
+ -- Klaus Knopper <knoppix@knopper.net>  Sun, 27 Oct 2002 18:54:00 +0100
+
+saveconfig-knoppix (0.5-9) unstable; urgency=low
+
+  * Restart PCMCIA services in case of changes in /etc/pcmcia/*
+
+ -- Klaus Knopper <knoppix@knopper.net>  Mon,  9 Sep 2002 22:36:45 +0200
+
+saveconfig-knoppix (0.5-8) unstable; urgency=low
+
+  * Corrected an incompatibility with Xdialog in multiple choice menus
+
+ -- Klaus Knopper <knoppix@knopper.net>  Mon, 29 Jul 2002 00:28:34 +0200
+
+saveconfig-knoppix (0.5-7) unstable; urgency=low
+
+  * Exclude Mozilla cache from saveconfig
+
+ -- Klaus Knopper <knoppix@knopper.net>  Sun, 28 Jul 2002 16:24:04 +0200
+
+saveconfig-knoppix (0.5-6) unstable; urgency=low
+
+  * Replaced gdialog by Xdialog
+
+ -- Klaus Knopper <knoppix@knopper.net>  Sun, 28 Jul 2002 03:49:49 +0200
+
+saveconfig-knoppix (0.5-5) unstable; urgency=low
+
+  * /etc/init.d/network should be /etc/init.d/networking
+
+ -- Klaus Knopper <knoppix@knopper.net>  Fri,  3 May 2002 18:42:27 +0200
+
+saveconfig-knoppix (0.5-4) unstable; urgency=low
+
+  * Use pump instead of dhcpcd
+
+ -- Klaus Knopper <knoppix@knopper.net>  Mon,  8 Apr 2002 00:34:18 +0200
+
+saveconfig-knoppix (0.5-3) unstable; urgency=low
+
+  * knoppix.sh cleanup
+  * Start cupsys if necessary
+
+ -- Klaus Knopper <knoppix@knopper.net>  Fri,  5 Apr 2002 23:13:32 +0200
+
+saveconfig-knoppix (0.5-2) unstable; urgency=low
+
+  * Removed konqueror cache from archive
+  * Split systemwide configuration into network, X and others
+
+ -- Klaus Knopper <knoppix@knopper.net>  Tue,  2 Apr 2002 22:47:18 +0200
+
+saveconfig-knoppix (0.5-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Klaus Knopper <knoppix@knopper.net>  Fri, 29 Mar 2002 20:19:15 +0100
+
