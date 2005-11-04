@@ -113,8 +113,8 @@ cat >"$1" <<EOT
 #!/bin/sh
 [ "\`id -u\`" = "0" ] || { echo "You need root privileges to modify the system!" >&2 ; exit 1; }
 [ -d "\$1" ] && CONFIGS="\$1/configs.tbz"
-[ -f "\$CONFIGS" ] || CONFIGS="/cdrom/KNOPPIX/configs.tbz"
-[ -f "\$CONFIGS" ] || CONFIGS="/mnt/floppy/configs.tbz"
+[ -f "\$CONFIGS" ] || CONFIGS="/media/cdrom0/KNOPPIX/configs.tbz"
+[ -f "\$CONFIGS" ] || CONFIGS="/media/floppy0/configs.tbz"
 if [ -f "\$CONFIGS" ]; then
 echo "[1mExtracting config archive \$CONFIGS...[0m"
 tar -jpPtf "\$CONFIGS" | while read i; do rm -f "\$i"; done
@@ -124,15 +124,15 @@ EOT
 return "$?"
 }
 
-FLOPPYDIR="$(ls -l /mnt/floppy | awk '{print $NF}')"
+FLOPPYDIR="$(ls -l /media/floppy0 | awk '{print $NF}')"
 
 umountfloppy(){
 mount | grep -q "$FLOPPYDIR" && umount "$FLOPPYDIR" 2>/dev/null
 }
 
 # Directory selector
-PARTITIONS="/mnt/floppy [Floppy] on"
-for i in `awk '/^\/dev\/[hs]d[a-z].*\/mnt\/[hs]d[a-z]/{if(!/ntfs/){print $2}}' /etc/fstab`; do
+PARTITIONS="/media/floppy0 [Floppy] on"
+for i in `awk '/^\/dev\/[hs]d[a-z].*\/media\/[hs]d[a-z]/{if(!/ntfs/){print $2}}' /etc/fstab`; do
 PARTITIONS="$PARTITIONS ${i} [Disk/Partition] off"
 done
 
@@ -149,7 +149,7 @@ KNOPPIXSH="$DIRECTORY/knoppix.sh"
 while :; do
 umountfloppy
 $DIALOG --title "$TITLE1" --yesno "$MESSAGE2" 8 65 || bailout
-echo "$FLOPPYDIR" | grep -q auto || mount /mnt/floppy
+echo "$FLOPPYDIR" | grep -q auto || mount /media/floppy0
 [ "$?" = "0" ] && writescript "$KNOPPIXSH" && break
 done
 ;;

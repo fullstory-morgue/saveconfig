@@ -1,8 +1,14 @@
+saveconfig-kanotix (0.5.17) unstable; urgency=low
+
+  * switch from /mnt/ to /media/.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri,  4 Nov 2005 19:16:03 +0100
+
 saveconfig-kanotix (0.5.16) unstable; urgency=low
 
   * overhaul packaging.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 23 Aug 2005 18:30:34 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri,  4 Nov 2005 19:15:59 +0100
 
 saveconfig-kanotix (0.5.15) unstable; urgency=low
 
