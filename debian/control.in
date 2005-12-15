@@ -9,7 +9,5 @@ Package: saveconfig-kanotix
 Architecture: all
 Depends: dialog, sudo, bzip2, kanotix-su
 Suggests: xdialog
-Provides: saveconfig-knoppix
-Conflicts: saveconfig-knoppix
 Description: generate configuration floppy
  Shell GUI for generation of a KANOTIX configuration floppy.

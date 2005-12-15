@@ -36,7 +36,7 @@ DESKTOPKB="$(du -sk $HOME/Desktop 2>/dev/null | awk '{print $1}')"
 # Language-dependent Messages
 case "$LANGUAGE" in
 de*|at*|ch*)
-TITLE1="KNOPPIX Konfigurationsarchiv anlegen"
+TITLE1="KANOTIX Konfigurationsarchiv anlegen"
 MESSAGE1="Konfigurationsdateien auswählen:"
 MESSAGE2="Bitte legen Sie jetzt eine leere DOS- oder ext2-formatierte, schreibbare Diskette ein."
 MESSAGE3="Archiviere geänderte Konfigurationsdateien..."
@@ -46,10 +46,10 @@ E2="Netzwerk Einstellungen (LAN, Modem, ISDN, ASDL)"
 E3="Grafik Subsystem Einstellungen (XF86Config)"
 E4="Weitere systemweite Einstellungen (Drucker etc.)"
 E5="Alle Desktop-Dateien (${DESKTOPKB}kB)"
-ERROR="Leider konnte die KNOPPIX-Konfiguration NICHT gespeichert werden:"
+ERROR="Leider konnte die KANOTIX-Konfiguration NICHT gespeichert werden:"
 ;;
 es*)
-TITLE1="Crear un archive de configuración de KNOPPIX"
+TITLE1="Crear un archive de configuración de KANOTIX"
 MESSAGE1="Elija el tipo de archivos de configuración:"
 MESSAGE2="Por favor, inserte un disquete vacío escribible formateado para DOS o ext2."
 MESSAGE3="Grabando archivos de la configuración..."
@@ -59,10 +59,10 @@ E2="Configuración de Red (LAN, Modem, RDSI, ADSL)"
 E3="Configuración del subsistema gráfico (XF86Config)"
 E4="Otras configuraciones del sistema (impresora, etc.)"
 E5="Todos los archivos en el Escritorio (${DESKTOPKB}kB)"
-ERROR="No se pudo crear de configuración de KNOPPIX:"
+ERROR="No se pudo crear de configuración de KANOTIX:"
 ;;
 *)
-TITLE1="Create KNOPPIX configuration archive"
+TITLE1="Create KANOTIX configuration archive"
 MESSAGE1="Chose type of configuration files:"
 MESSAGE2="Please insert an empty DOS- or ext2-formatted, writable floppy disk."
 MESSAGE3="Saving configuration archive..."
@@ -72,7 +72,7 @@ E2="Network settings (LAN, Modem, ISDN, ADSL)"
 E3="Graphics subsystem settings (XF86Config)"
 E4="Other system configuration (printer etc.)"
 E5="All files on the Desktop (${DESKTOPKB}kB)"
-ERROR="The KNOPPIX configuration could NOT be saved:"
+ERROR="The KANOTIX configuration could NOT be saved:"
 ;;
 esac
 
@@ -124,6 +124,7 @@ EOT
 return "$?"
 }
 
+# Just displays the symlink target, does not actually cause the automounter to attempt starting a mount.
 FLOPPYDIR="$(ls -l /media/floppy0 | awk '{print $NF}')"
 
 umountfloppy(){
@@ -132,7 +133,7 @@ mount | grep -q "$FLOPPYDIR" && umount "$FLOPPYDIR" 2>/dev/null
 
 # Directory selector
 PARTITIONS="/media/floppy0 [Floppy] on"
-for i in `awk '/^\/dev\/[hs]d[a-z].*\/media\/[hs]d[a-z]/{if(!/ntfs/){print $2}}' /etc/fstab`; do
+for i in `awk '/^\/dev\/([hs]d|ub)[a-z].*\/mnt\/([hs]d|ub)[a-z]/{if(!/ntfs/){print $2}}' /etc/fstab`; do
 PARTITIONS="$PARTITIONS ${i} [Disk/Partition] off"
 done
 
@@ -235,17 +236,32 @@ else
 umount "$DIRECTORY"
 fi
 
+BOOTOPT="myconfig=$DIRECTORY"
+AUTO="myconfig=scan"
+case "$DIRECTORY" in 
+	*floppy*)
+		BOOTOPT="floppyconfig"
+		AUTO=""
+		;;
+esac
+
 # More language-dependent Messages
 case "$LANGUAGE" in
-de*|at*|ch*)
-SUCCESS="Die KNOPPIX-Konfiguration wurde erfolgreich gespeichert. Ihre Konfigurationsdateien werden beim nächsten KNOPPIX-Bootvorgang in die Ramdisk restauriert, wenn Sie im Bootscreen \"myconfig=$DIRECTORY\" bzw. \"myconfig=scan\" (automatische Suche) angeben."
-;;
-es*)
-SUCCESS="La creación del configuración de KNOPPIX fue satisfactoria. Sus archivos de configuración serán reinstalados en el siguiente arranque de KNOPPIX si especifica \"myconfig=$DIRECTORY\" o \"myconfig=scan\" (automatic) en la línea de comandos del arranque."
-;;
-*)
-SUCCESS="Creation of the KNOPPIX configuration archive was successful. Your configuration files will be reinstalled to the ramdisk on next KNOPPIX boot if you specify \"myconfig=$DIRECTORY\", or \"myconfig=scan\" (automatic search) at the boot prompt."
-;;
+	de*|at*|ch*)
+		SUCCESS="Die KANOTIX-Konfiguration wurde erfolgreich gespeichert. Ihre Konfigurationsdateien werden beim nächsten KANOTIX-Bootvorgang in die Ramdisk restauriert, wenn Sie im Bootscreen \"myconfig=$DIRECTORY\" bzw. \"myconfig=scan\" (automatische Suche) angeben."
+		[ -n "$AUTO" ] && AUTO=" bzw. \"$AUTO\" (automatische Suche)"
+		SUCCESS="Die KANOTIX-Konfiguration wurde erfolgreich gespeichert. Ihre Konfigurationsdateien werden beim nächsten KANOTIX-Bootvorgang in die Ramdisk restauriert, wenn Sie im Bootscreen \"$BOOTOPT\"$AUTO angeben."
+		;;
+	es*)
+		SUCCESS="La creación del configuración de KANOTIX fue satisfactoria. Sus archivos de configuración serán reinstalados en el siguiente arranque de KANOTIX si especifica \"myconfig=$DIRECTORY\" o \"myconfig=scan\" (automatic) en la línea de comandos del arranque."
+		[ -n "$AUTO" ] && AUTO=" o \"$AUTO\" (automatic)"
+		SUCCESS="La creación del configuración de KANOTIX fue satisfactoria. Sus archivos de configuración serán reinstalados en el siguiente arranque de KANOTIX si especifica \"$BOOTOPT\"$AUTO en la línea de comandos del arranque."
+		;;
+	*)
+		SUCCESS="Creation of the KANOTIX configuration archive was successful. Your configuration files will be reinstalled to the ramdisk on next KANOTIX boot if you specify \"myconfig=$DIRECTORY\", or \"myconfig=scan\" (automatic search) at the boot prompt."
+		[ -n "$AUTO" ] && AUTO=", or \"$AUTO\" (automatic search)"
+		SUCCESS="Creation of the KANOTIX configuration archive was successful. Your configuration files will be reinstalled to the ramdisk on next KANOTIX boot if you specify \"$BOOTOPT\"$AUTO at the boot prompt."
+      ;;
 esac
 
 

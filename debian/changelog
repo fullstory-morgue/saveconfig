@@ -1,8 +1,13 @@
-saveconfig-kanotix (0.5.18) UNRELEASED; urgency=low
+saveconfig-kanotix (0.5.18) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * synch with saveconfig-knoppix 0.5-15, changed by Klaus Knopper
+    <knopper@knopper.net>:
+    - Changes boot messages for floppy config.
+    - Support for new ub* scheme.
+  * bump compat leve to 5.
+  * remove knoppix virtual packages.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri,  4 Nov 2005 19:18:00 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 13 Dec 2005 11:56:51 +0100
 
 saveconfig-kanotix (0.5.17) unstable; urgency=low
 
