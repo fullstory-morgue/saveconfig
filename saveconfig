@@ -3,6 +3,13 @@
 # (C) Klaus Knopper Mar 2002
 # Spanish translation by Luis Llorente, luis.llorente@hispalinux.es
 
+# override tool behaviour through distro-defaults
+FLL_DISTRO_NAME="Kanotix"
+FLL_IMAGE_DIR="KNOPPIX"
+FLL_MOUNTPOINT="/KNOPPIX"
+[ -r /etc/default/distro ] && source /etc/default/distro
+
+
 PATH="/bin:/sbin:/usr/bin:/usr/sbin"
 export PATH
 
@@ -36,7 +43,7 @@ DESKTOPKB="$(du -sk $HOME/Desktop 2>/dev/null | awk '{print $1}')"
 # Language-dependent Messages
 case "$LANGUAGE" in
 de*|at*|ch*)
-TITLE1="KANOTIX Konfigurationsarchiv anlegen"
+TITLE1="${FLL_DISTRO_NAME} Konfigurationsarchiv anlegen"
 MESSAGE1="Konfigurationsdateien auswählen:"
 MESSAGE2="Bitte legen Sie jetzt eine leere DOS- oder ext2-formatierte, schreibbare Diskette ein."
 MESSAGE3="Archiviere geänderte Konfigurationsdateien..."
@@ -46,10 +53,10 @@ E2="Netzwerk Einstellungen (LAN, Modem, ISDN, ASDL)"
 E3="Grafik Subsystem Einstellungen (XF86Config)"
 E4="Weitere systemweite Einstellungen (Drucker etc.)"
 E5="Alle Desktop-Dateien (${DESKTOPKB}kB)"
-ERROR="Leider konnte die KANOTIX-Konfiguration NICHT gespeichert werden:"
+ERROR="Leider konnte die ${FLL_DISTRO_NAME}-Konfiguration NICHT gespeichert werden:"
 ;;
 es*)
-TITLE1="Crear un archive de configuración de KANOTIX"
+TITLE1="Crear un archive de configuración de${FLL_DISTRO_NAME}"
 MESSAGE1="Elija el tipo de archivos de configuración:"
 MESSAGE2="Por favor, inserte un disquete vacío escribible formateado para DOS o ext2."
 MESSAGE3="Grabando archivos de la configuración..."
@@ -59,10 +66,10 @@ E2="Configuración de Red (LAN, Modem, RDSI, ADSL)"
 E3="Configuración del subsistema gráfico (XF86Config)"
 E4="Otras configuraciones del sistema (impresora, etc.)"
 E5="Todos los archivos en el Escritorio (${DESKTOPKB}kB)"
-ERROR="No se pudo crear de configuración de KANOTIX:"
+ERROR="No se pudo crear de configuración de ${FLL_DISTRO_NAME}:"
 ;;
 *)
-TITLE1="Create KANOTIX configuration archive"
+TITLE1="Create ${FLL_DISTRO_NAME} configuration archive"
 MESSAGE1="Chose type of configuration files:"
 MESSAGE2="Please insert an empty DOS- or ext2-formatted, writable floppy disk."
 MESSAGE3="Saving configuration archive..."
@@ -72,7 +79,7 @@ E2="Network settings (LAN, Modem, ISDN, ADSL)"
 E3="Graphics subsystem settings (XF86Config)"
 E4="Other system configuration (printer etc.)"
 E5="All files on the Desktop (${DESKTOPKB}kB)"
-ERROR="The KANOTIX configuration could NOT be saved:"
+ERROR="The ${FLL_DISTRO_NAME} configuration could NOT be saved:"
 ;;
 esac
 
@@ -113,7 +120,7 @@ cat >"$1" <<EOT
 #!/bin/sh
 [ "\`id -u\`" = "0" ] || { echo "You need root privileges to modify the system!" >&2 ; exit 1; }
 [ -d "\$1" ] && CONFIGS="\$1/configs.tbz"
-[ -f "\$CONFIGS" ] || CONFIGS="/media/cdrom0/KNOPPIX/configs.tbz"
+[ -f "\$CONFIGS" ] || CONFIGS="/media/cdrom0/${FLL_IMAGE_DIR}/configs.tbz"
 [ -f "\$CONFIGS" ] || CONFIGS="/media/floppy0/configs.tbz"
 if [ -f "\$CONFIGS" ]; then
 echo "[1mExtracting config archive \$CONFIGS...[0m"
@@ -188,8 +195,8 @@ touch "$TMP"
 
 IGNORE='/etc/ioctl.save|/etc/mtab'
 
-if [ -n "$SAVEETC" -a -d /KNOPPIX/etc ]; then
-findchanged /etc /KNOPPIX/etc >>"$TMP"
+if [ -n "$SAVEETC" -a -d ${FLL_MOUNTPOINT}/etc ]; then
+findchanged /etc ${FLL_MOUNTPOINT}/etc >>"$TMP"
 [ -n "$SAVENET" ] || IGNORE="$IGNORE|$NETFILES"
 [ -n "$SAVEX" ] || IGNORE="$IGNORE|$XFILES"
 fi
@@ -248,19 +255,19 @@ esac
 # More language-dependent Messages
 case "$LANGUAGE" in
 	de*|at*|ch*)
-		SUCCESS="Die KANOTIX-Konfiguration wurde erfolgreich gespeichert. Ihre Konfigurationsdateien werden beim nächsten KANOTIX-Bootvorgang in die Ramdisk restauriert, wenn Sie im Bootscreen \"myconfig=$DIRECTORY\" bzw. \"myconfig=scan\" (automatische Suche) angeben."
+		SUCCESS="Die ${FLL_DISTRO_NAME}-Konfiguration wurde erfolgreich gespeichert. Ihre Konfigurationsdateien werden beim nächsten ${FLL_DISTRO_NAME}-Bootvorgang in die Ramdisk restauriert, wenn Sie im Bootscreen \"myconfig=$DIRECTORY\" bzw. \"myconfig=scan\" (automatische Suche) angeben."
 		[ -n "$AUTO" ] && AUTO=" bzw. \"$AUTO\" (automatische Suche)"
-		SUCCESS="Die KANOTIX-Konfiguration wurde erfolgreich gespeichert. Ihre Konfigurationsdateien werden beim nächsten KANOTIX-Bootvorgang in die Ramdisk restauriert, wenn Sie im Bootscreen \"$BOOTOPT\"$AUTO angeben."
+		SUCCESS="Die ${FLL_DISTRO_NAME}-Konfiguration wurde erfolgreich gespeichert. Ihre Konfigurationsdateien werden beim nächsten ${FLL_DISTRO_NAME}-Bootvorgang in die Ramdisk restauriert, wenn Sie im Bootscreen \"$BOOTOPT\"$AUTO angeben."
 		;;
 	es*)
-		SUCCESS="La creación del configuración de KANOTIX fue satisfactoria. Sus archivos de configuración serán reinstalados en el siguiente arranque de KANOTIX si especifica \"myconfig=$DIRECTORY\" o \"myconfig=scan\" (automatic) en la línea de comandos del arranque."
+		SUCCESS="La creación del configuración de ${FLL_DISTRO_NAME} fue satisfactoria. Sus archivos de configuración serán reinstalados en el siguiente arranque de ${FLL_DISTRO_NAME} si especifica \"myconfig=$DIRECTORY\" o \"myconfig=scan\" (automatic) en la línea de comandos del arranque."
 		[ -n "$AUTO" ] && AUTO=" o \"$AUTO\" (automatic)"
-		SUCCESS="La creación del configuración de KANOTIX fue satisfactoria. Sus archivos de configuración serán reinstalados en el siguiente arranque de KANOTIX si especifica \"$BOOTOPT\"$AUTO en la línea de comandos del arranque."
+		SUCCESS="La creación del configuración de ${FLL_DISTRO_NAME} fue satisfactoria. Sus archivos de configuración serán reinstalados en el siguiente arranque de ${FLL_DISTRO_NAME} si especifica \"$BOOTOPT\"$AUTO en la línea de comandos del arranque."
 		;;
 	*)
-		SUCCESS="Creation of the KANOTIX configuration archive was successful. Your configuration files will be reinstalled to the ramdisk on next KANOTIX boot if you specify \"myconfig=$DIRECTORY\", or \"myconfig=scan\" (automatic search) at the boot prompt."
+		SUCCESS="Creation of the ${FLL_DISTRO_NAME} configuration archive was successful. Your configuration files will be reinstalled to the ramdisk on next ${FLL_DISTRO_NAME} boot if you specify \"myconfig=$DIRECTORY\", or \"myconfig=scan\" (automatic search) at the boot prompt."
 		[ -n "$AUTO" ] && AUTO=", or \"$AUTO\" (automatic search)"
-		SUCCESS="Creation of the KANOTIX configuration archive was successful. Your configuration files will be reinstalled to the ramdisk on next KANOTIX boot if you specify \"$BOOTOPT\"$AUTO at the boot prompt."
+		SUCCESS="Creation of the ${FLL_DISTRO_NAME} configuration archive was successful. Your configuration files will be reinstalled to the ramdisk on next ${FLL_DISTRO_NAME} boot if you specify \"$BOOTOPT\"$AUTO at the boot prompt."
       ;;
 esac
 

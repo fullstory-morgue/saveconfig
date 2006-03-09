@@ -1,8 +1,8 @@
-saveconfig-kanotix (0.5.20) UNRELEASED; urgency=low
+saveconfig-kanotix (0.5.20) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * knoppix --> kanotix transition, thanks to x-un-i.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu,  9 Feb 2006 01:44:34 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 10 Mar 2006 00:46:05 +0100
 
 saveconfig-kanotix (0.5.19) unstable; urgency=low
 
