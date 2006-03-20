@@ -1,8 +1,9 @@
-saveconfig-kanotix (0.5.21) UNRELEASED; urgency=low
+saveconfig-kanotix (0.5.21) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * re- indent.
+  * fix mnt vs. media confusion, thanks to eco2geek.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri, 10 Mar 2006 00:47:30 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 20 Mar 2006 10:34:53 +0100
 
 saveconfig-kanotix (0.5.20) unstable; urgency=low
 
