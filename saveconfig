@@ -9,9 +9,11 @@ FLL_IMAGE_DIR="KNOPPIX"
 FLL_MOUNTPOINT="/KNOPPIX"
 [ -r /etc/default/distro ] && source /etc/default/distro
 
-
 PATH="/bin:/sbin:/usr/bin:/usr/sbin"
 export PATH
+
+# update fstab for usb devices connected later
+rebuildfstab
 
 XDIALOG_HIGH_DIALOG_COMPAT=1
 export XDIALOG_HIGH_DIALOG_COMPAT
