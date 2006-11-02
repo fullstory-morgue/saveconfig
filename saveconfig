@@ -46,11 +46,11 @@ DESKTOPKB="$(du -sk $HOME/Desktop 2>/dev/null | awk '{print $1}')"
 case "$LANGUAGE" in
 	de*|at*|ch*)
 		TITLE1="${FLL_DISTRO_NAME} Konfigurationsarchiv anlegen"
-		MESSAGE1="Konfigurationsdateien ausw鋒len:"
+		MESSAGE1="Konfigurationsdateien ausw盲hlen:"
 		MESSAGE2="Bitte legen Sie jetzt eine leere DOS- oder ext2-formatierte, schreibbare Diskette ein."
-		MESSAGE3="Archiviere ge鋘derte Konfigurationsdateien..."
-		MESSAGE4="Bitte w鋒len Sie das Verzeichnis, in das Sie die Konfigurationsdateien schreiben wollen."
-		E1="Pers鰊liche Einstellungen (Desktop, Programme)"
+		MESSAGE3="Archiviere ge盲nderte Konfigurationsdateien..."
+		MESSAGE4="Bitte w盲hlen Sie das Verzeichnis, in das Sie die Konfigurationsdateien schreiben wollen."
+		E1="Pers枚nliche Einstellungen (Desktop, Programme)"
 		E2="Netzwerk Einstellungen (LAN, Modem, ISDN, ASDL)"
 		E3="Grafik Subsystem Einstellungen (XF86Config)"
 		E4="Weitere systemweite Einstellungen (Drucker etc.)"
@@ -58,17 +58,17 @@ case "$LANGUAGE" in
 		ERROR="Leider konnte die ${FLL_DISTRO_NAME}-Konfiguration NICHT gespeichert werden:"
 		;;
 	es*)
-		TITLE1="Crear un archive de configuraci髇 de${FLL_DISTRO_NAME}"
-		MESSAGE1="Elija el tipo de archivos de configuraci髇:"
-		MESSAGE2="Por favor, inserte un disquete vac韔 escribible formateado para DOS o ext2."
-		MESSAGE3="Grabando archivos de la configuraci髇..."
-		MESSAGE4="Por favor, seleccione el directorio para los archivos de la configuraci髇 del ahorro."
-		E1="Configuraci髇 personal (escritorio, programas)"
-		E2="Configuraci髇 de Red (LAN, Modem, RDSI, ADSL)"
-		E3="Configuraci髇 del subsistema gr醘ico (XF86Config)"
+		TITLE1="Crear un archive de configuraci贸n de${FLL_DISTRO_NAME}"
+		MESSAGE1="Elija el tipo de archivos de configuraci贸n:"
+		MESSAGE2="Por favor, inserte un disquete vac铆o escribible formateado para DOS o ext2."
+		MESSAGE3="Grabando archivos de la configuraci贸n..."
+		MESSAGE4="Por favor, seleccione el directorio para los archivos de la configuraci贸n del ahorro."
+		E1="Configuraci贸n personal (escritorio, programas)"
+		E2="Configuraci贸n de Red (LAN, Modem, RDSI, ADSL)"
+		E3="Configuraci贸n del subsistema gr谩fico (XF86Config)"
 		E4="Otras configuraciones del sistema (impresora, etc.)"
 		E5="Todos los archivos en el Escritorio (${DESKTOPKB}kB)"
-		ERROR="No se pudo crear de configuraci髇 de ${FLL_DISTRO_NAME}:"
+		ERROR="No se pudo crear de configuraci贸n de ${FLL_DISTRO_NAME}:"
 		;;
 	*)
 		TITLE1="Create ${FLL_DISTRO_NAME} configuration archive"
@@ -282,14 +282,14 @@ esac
 # More language-dependent Messages
 case "$LANGUAGE" in
 	de*|at*|ch*)
-		SUCCESS="Die ${FLL_DISTRO_NAME}-Konfiguration wurde erfolgreich gespeichert. Ihre Konfigurationsdateien werden beim n鋍hsten ${FLL_DISTRO_NAME}-Bootvorgang in die Ramdisk restauriert, wenn Sie im Bootscreen \"myconfig=$DIRECTORY\" bzw. \"myconfig=scan\" (automatische Suche) angeben."
+		SUCCESS="Die ${FLL_DISTRO_NAME}-Konfiguration wurde erfolgreich gespeichert. Ihre Konfigurationsdateien werden beim n盲chsten ${FLL_DISTRO_NAME}-Bootvorgang in die Ramdisk restauriert, wenn Sie im Bootscreen \"myconfig=$DIRECTORY\" bzw. \"myconfig=scan\" (automatische Suche) angeben."
 		[ -n "$AUTO" ] && AUTO=" bzw. \"$AUTO\" (automatische Suche)"
-		SUCCESS="Die ${FLL_DISTRO_NAME}-Konfiguration wurde erfolgreich gespeichert. Ihre Konfigurationsdateien werden beim n鋍hsten ${FLL_DISTRO_NAME}-Bootvorgang in die Ramdisk restauriert, wenn Sie im Bootscreen \"$BOOTOPT\"$AUTO angeben."
+		SUCCESS="Die ${FLL_DISTRO_NAME}-Konfiguration wurde erfolgreich gespeichert. Ihre Konfigurationsdateien werden beim n盲chsten ${FLL_DISTRO_NAME}-Bootvorgang in die Ramdisk restauriert, wenn Sie im Bootscreen \"$BOOTOPT\"$AUTO angeben."
 		;;
 	es*)
-		SUCCESS="La creaci髇 del configuraci髇 de ${FLL_DISTRO_NAME} fue satisfactoria. Sus archivos de configuraci髇 ser醤 reinstalados en el siguiente arranque de ${FLL_DISTRO_NAME} si especifica \"myconfig=$DIRECTORY\" o \"myconfig=scan\" (automatic) en la l韓ea de comandos del arranque."
+		SUCCESS="La creaci贸n del configuraci贸n de ${FLL_DISTRO_NAME} fue satisfactoria. Sus archivos de configuraci贸n ser谩n reinstalados en el siguiente arranque de ${FLL_DISTRO_NAME} si especifica \"myconfig=$DIRECTORY\" o \"myconfig=scan\" (automatic) en la l铆nea de comandos del arranque."
 		[ -n "$AUTO" ] && AUTO=" o \"$AUTO\" (automatic)"
-		SUCCESS="La creaci髇 del configuraci髇 de ${FLL_DISTRO_NAME} fue satisfactoria. Sus archivos de configuraci髇 ser醤 reinstalados en el siguiente arranque de ${FLL_DISTRO_NAME} si especifica \"$BOOTOPT\"$AUTO en la l韓ea de comandos del arranque."
+		SUCCESS="La creaci贸n del configuraci贸n de ${FLL_DISTRO_NAME} fue satisfactoria. Sus archivos de configuraci贸n ser谩n reinstalados en el siguiente arranque de ${FLL_DISTRO_NAME} si especifica \"$BOOTOPT\"$AUTO en la l铆nea de comandos del arranque."
 		;;
 	*)
 		SUCCESS="Creation of the ${FLL_DISTRO_NAME} configuration archive was successful. Your configuration files will be reinstalled to the ramdisk on next ${FLL_DISTRO_NAME} boot if you specify \"myconfig=$DIRECTORY\", or \"myconfig=scan\" (automatic search) at the boot prompt."

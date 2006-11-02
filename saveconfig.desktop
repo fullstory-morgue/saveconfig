@@ -1,7 +1,7 @@
 [Desktop Entry]
 Exec=kanotix-su /usr/sbin/saveconfig
 Name[de]=KANOTIX-Konfiguration speichern
-Name[es]=Guardar la configuración de KANOTIX
+Name[es]=Guardar la configuraciÃ³n de KANOTIX
 Name=Save KANOTIX configuration
 Icon=saveconfig
 Type=Application
