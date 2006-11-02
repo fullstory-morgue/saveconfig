@@ -1,3 +1,9 @@
+saveconfig-kanotix (0.5.24) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu,  2 Nov 2006 14:13:04 +0100
+
 saveconfig-kanotix (0.5.23) unstable; urgency=low
 
   * switch to utf-8.
