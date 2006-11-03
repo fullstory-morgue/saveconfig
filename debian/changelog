@@ -1,3 +1,9 @@
+saveconfig-kanotix (0.5.25) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri,  3 Nov 2006 18:24:16 +0100
+
 saveconfig-kanotix (0.5.24) unstable; urgency=low
 
   * we're using xorg.conf these days, not XF86Config.
