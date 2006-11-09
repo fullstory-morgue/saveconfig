@@ -2,6 +2,7 @@
 # saveconfig - create KNOPPIX configuration floppy
 # (C) Klaus Knopper Mar 2002
 # Spanish translation by Luis Llorente, luis.llorente@hispalinux.es
+# (C) 2004-2006 Stefan Lippers-Hollmann <s.l-h@gmx.de>
 
 # override tool behaviour through distro-defaults
 FLL_DISTRO_NAME="Kanotix"
@@ -19,12 +20,15 @@ XDIALOG_HIGH_DIALOG_COMPAT=1
 export XDIALOG_HIGH_DIALOG_COMPAT
 
 # Get root
-[ "`id -u`" != "0" ] && exec sudo "$0" "$@"
+[ "`id -u`" != "0" ] && exec kanotix-su "$0" "$@"
 
-TMP="/tmp/saveconfig.tmp$$"
+TMP="$(mktemp -p /tmp/ saveconfig-XXXXXXXXXX)"
+TMP_DONE="$(mktemp -p /tmp/ saveconfig-done-XXXXXXXXXX)"
+TMP_ERR="$(mktemp -p /tmp/ saveconfig-err-XXXXXXXXXX)"
+TMP_TMP="$(mktemp -p /tmp/ saveconfig-tmp-XXXXXXXXXX)"
 
 bailout() {
-	rm -f "$TMP" "$TMP.done" "$TMP.err"
+	rm -f "$TMP" "$TMP_DONE" "$TMP_ERR"
 	umount "$DIRECTORY"
 	exit 0
 }
@@ -43,7 +47,7 @@ trap bailout 1 2 3 15
 DESKTOPKB="$(du -sk $HOME/Desktop 2>/dev/null | awk '{print $1}')"
 
 # Language-dependent Messages
-case "$LANGUAGE" in
+case "$LANG" in
 	de*|at*|ch*)
 		TITLE1="${FLL_DISTRO_NAME} Konfigurationsarchiv anlegen"
 		MESSAGE1="Konfigurationsdateien auswählen:"
@@ -157,7 +161,7 @@ umountfloppy() {
 # Directory selector
 PARTITIONS="/media/floppy0 [Floppy] on"
 for i in `awk '/^\/dev\/([hs]d|ub)[a-z].*\/media\/([hs]d|ub)[a-z]/{if(!/ntfs/){print $2}}' /etc/fstab`; do
-PARTITIONS="$PARTITIONS ${i} [Disk/Partition] off"
+	PARTITIONS="$PARTITIONS ${i} [Disk/Partition] off"
 done
 
 
@@ -180,9 +184,9 @@ case "$DIRECTORY" in
 		done
 		;;
 	*)
-		rm -f "$TMP.err"
-		mount | grep -q "$DIRECTORY" || mount -r "$DIRECTORY" >"$TMP.err"
-		[ "$?" != "0" ] && { $DIALOG --title "$TITLE1" --msgbox "$ERROR `cat $TMP.err`" 10 75; bailout; }
+		rm -f "$TMP_ERR"
+		mount | grep -q "$DIRECTORY" || mount -r "$DIRECTORY" >"$TMP_ERR"
+		[ "$?" != "0" ] && { $DIALOG --title "$TITLE1" --msgbox "$ERROR `cat $TMP_ERR`" 10 75; bailout; }
 		mount | grep -q "$DIRECTORY.*ntfs" && { $DIALOG --title "$TITLE1" --msgbox "$ERROR NTFS" 10 75; bailout; }
 		mount -o remount,rw "$DIRECTORY"
 		KNOPPIXSH="$DIRECTORY/knoppix.sh"
@@ -194,17 +198,15 @@ gpid=""
 
 gauge() {
 	status=0
-	while [ ! -e "$TMP.done" ]; do echo "$status" ; status="`expr \( 100 - $status \) / 4 + $status`"; sleep 2; done | $DIALOG --title "$TITLE1" --gauge "$MESSAGE3" 8 65 0
+	while [ ! -e "$TMP_DONE" ]; do
+		echo "$status"
+		status="`expr \( 100 - $status \) / 4 + $status`"
+		sleep 2
+	done | $DIALOG --title "$TITLE1" --gauge "$MESSAGE3" 8 65 0
 }
 
 # Start status bar
-# if [ "$DIALOG" = "dialog" ]; then
 gauge &
-# else
-## Gauge doesn't work yet with gdialog
-# $DIALOG --title "$TITLE1" --gauge "$MESSAGE3" 8 65 75 &
-# gpid="$!"
-# fi
 
 rm -f "$TMP"
 touch "$TMP"
@@ -220,9 +222,9 @@ if [ -n "$SAVEETC" -a -d ${FLL_MOUNTPOINT}/etc ]; then
 	[ -n "$SAVEX" ] || IGNORE="$IGNORE|$XFILES"
 fi
 
-rm -f "$TMP.tmp"
-egrep -v -e '('"$IGNORE"')' "$TMP" > "$TMP.tmp"
-mv -f "$TMP.tmp" "$TMP"
+rm -f "$TMP_TMP"
+egrep -v -e '('"$IGNORE"')' "$TMP" > "$TMP_TMP"
+mv -f "$TMP_TMP" "$TMP"
 
 SCRIPTS=""
 STARTNET=""
@@ -259,8 +261,8 @@ fi
 
 [ -n "$REINIT" ] && echo 'echo "[1mReloading INIT.[0m" ; init q' >> "$KNOPPIXSH"
 
-rm -f "$TMP.err"
-BZIP2=-9 tar -T - -cpPjf "$DIRECTORY/configs.tbz" <"$TMP" 2>"$TMP.err"
+rm -f "$TMP_ERR"
+BZIP2=-9 tar -T - -cpPjf "$DIRECTORY/configs.tbz" <"$TMP" 2>"$TMP_ERR"
 
 RC="$?"
 
@@ -280,7 +282,7 @@ case "$DIRECTORY" in
 esac
 
 # More language-dependent Messages
-case "$LANGUAGE" in
+case "$LANG" in
 	de*|at*|ch*)
 		SUCCESS="Die ${FLL_DISTRO_NAME}-Konfiguration wurde erfolgreich gespeichert. Ihre Konfigurationsdateien werden beim nächsten ${FLL_DISTRO_NAME}-Bootvorgang in die Ramdisk restauriert, wenn Sie im Bootscreen \"myconfig=$DIRECTORY\" bzw. \"myconfig=scan\" (automatische Suche) angeben."
 		[ -n "$AUTO" ] && AUTO=" bzw. \"$AUTO\" (automatische Suche)"
@@ -295,15 +297,14 @@ case "$LANGUAGE" in
 		SUCCESS="Creation of the ${FLL_DISTRO_NAME} configuration archive was successful. Your configuration files will be reinstalled to the ramdisk on next ${FLL_DISTRO_NAME} boot if you specify \"myconfig=$DIRECTORY\", or \"myconfig=scan\" (automatic search) at the boot prompt."
 		[ -n "$AUTO" ] && AUTO=", or \"$AUTO\" (automatic search)"
 		SUCCESS="Creation of the ${FLL_DISTRO_NAME} configuration archive was successful. Your configuration files will be reinstalled to the ramdisk on next ${FLL_DISTRO_NAME} boot if you specify \"$BOOTOPT\"$AUTO at the boot prompt."
-      ;;
+		;;
 esac
 
 
 # Stop status bar
-# [ "$DIALOG" = "dialog" ] && { touch "$TMP.done" ; wait ; rm -f "$TMP.done" ; } || { [ -n "$gpid" ] && kill "$gpid" 2>/dev/null; sleep 1; }
-touch "$TMP.done" ; wait ; rm -f "$TMP.done"
+touch "$TMP_DONE" ; wait ; rm -f "$TMP_DONE"
 
-[ "$RC" = "0" ] && $DIALOG --title "$TITLE1" --msgbox "$SUCCESS" 12 65 || $DIALOG --title "$TITLE1" --msgbox "$ERROR `cat $TMP.err`" 10 75
+[ "$RC" = "0" ] && $DIALOG --title "$TITLE1" --msgbox "$SUCCESS" 12 65 || $DIALOG --title "$TITLE1" --msgbox "$ERROR `cat $TMP_ERR`" 10 75
 
 bailout
 

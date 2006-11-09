@@ -7,7 +7,7 @@ Standards-Version: 3.7.2
 
 Package: saveconfig-kanotix
 Architecture: all
-Depends: dialog, sudo, bzip2, kanotix-su
+Depends: dialog, bzip2, kanotix-su
 Suggests: xdialog
 Description: generate configuration floppy
  Shell GUI for generation of a KANOTIX configuration floppy.

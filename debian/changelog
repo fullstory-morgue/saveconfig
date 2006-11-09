@@ -1,8 +1,10 @@
-saveconfig-kanotix (0.5.25) UNRELEASED; urgency=low
+saveconfig-kanotix (0.5.25) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * fix i18n.
+  * get rid of bogus /etc/sysconfig/ dependency.
+  * fix unsafe tempfile handling.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Fri,  3 Nov 2006 18:24:16 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu,  9 Nov 2006 23:27:35 +0100
 
 saveconfig-kanotix (0.5.24) unstable; urgency=low
 
