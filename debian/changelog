@@ -1,8 +1,10 @@
-saveconfig-kanotix (0.5.26) UNRELEASED; urgency=low
+saveconfig (0.5.26) UNRELEASED; urgency=low
 
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu,  9 Nov 2006 23:29:26 +0100
+  * Initial version for sidux.
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Sun,  3 Dec 2006 18:25:53 +0100
 
 saveconfig-kanotix (0.5.25) unstable; urgency=low
 

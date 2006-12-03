@@ -1,13 +1,14 @@
-Source: saveconfig-kanotix
+Source: saveconfig
 Section: admin
 Priority: optional
 Maintainer: Stefan Lippers-Hollmann <s.l-h@gmx.de>
 Build-Depends: cdbs (>= 0.4.23-1.1), debhelper (>= 5.0.0)
 Standards-Version: 3.7.2
 
-Package: saveconfig-kanotix
+Package: saveconfig
 Architecture: all
-Depends: dialog, bzip2, kanotix-su
+Depends: dialog, bzip2, su-me
+Conflicts: saveconfig-kanotix
 Suggests: xdialog
 Description: generate configuration floppy
- Shell GUI for generation of a KANOTIX configuration floppy.
+ Shell GUI for generation of a Sidux configuration floppy.
