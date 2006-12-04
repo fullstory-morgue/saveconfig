@@ -1,7 +1,7 @@
 [Desktop Entry]
 Exec=su-me /usr/sbin/saveconfig
-Name[de]=Sidux-Konfiguration speichern
-Name[es]=Guardar la configuración de Sidux
-Name=Save Sidux configuration
+Name[de]=sidux-Konfiguration speichern
+Name[es]=Guardar la configuración de sidux
+Name=Save sidux configuration
 Icon=saveconfig
 Type=Application

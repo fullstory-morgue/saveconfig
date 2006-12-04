@@ -3,8 +3,9 @@ saveconfig (0.5.26) UNRELEASED; urgency=low
   * NOT RELEASED YET
 
   * Initial version for sidux.
+  * fixed mispelling
 
- -- Joaquim Boura <x-un-i@sidux.com>  Sun,  3 Dec 2006 18:25:53 +0100
+ -- Joaquim Boura <x-un-i@sidux.com>  Mon,  4 Dec 2006 14:50:30 +0100
 
 saveconfig-kanotix (0.5.25) unstable; urgency=low
 

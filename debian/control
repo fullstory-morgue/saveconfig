@@ -11,4 +11,4 @@ Depends: dialog, bzip2, su-me
 Conflicts: saveconfig-kanotix
 Suggests: xdialog
 Description: generate configuration floppy
- Shell GUI for generation of a Sidux configuration floppy.
+ Shell GUI for generation of a sidux configuration floppy.
