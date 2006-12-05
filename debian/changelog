@@ -1,11 +1,13 @@
-saveconfig (0.5.26) UNRELEASED; urgency=low
+saveconfig (0.5.26) unstable; urgency=low
 
-  * NOT RELEASED YET
-
+  [ Joaquim Boura ]
   * Initial version for sidux.
   * fixed mispelling
 
- -- Joaquim Boura <x-un-i@sidux.com>  Mon,  4 Dec 2006 14:50:30 +0100
+  [ Stefan Lippers-Hollmann ]
+  * minor debian/control cosmetics.
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue,  5 Dec 2006 13:45:08 +0100
 
 saveconfig-kanotix (0.5.25) unstable; urgency=low
 
