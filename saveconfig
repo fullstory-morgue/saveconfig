@@ -13,14 +13,14 @@ FLL_MOUNTPOINT="/KNOPPIX"
 PATH="/bin:/sbin:/usr/bin:/usr/sbin"
 export PATH
 
+# Get root
+[ "`id -u`" != "0" ] && exec su-me "$0" "$@"
+
 # update fstab for usb devices connected later
 rebuildfstab
 
 XDIALOG_HIGH_DIALOG_COMPAT=1
 export XDIALOG_HIGH_DIALOG_COMPAT
-
-# Get root
-[ "`id -u`" != "0" ] && exec su-me "$0" "$@"
 
 TMP="$(mktemp -p /tmp/ saveconfig-XXXXXXXXXX)"
 TMP_DONE="$(mktemp -p /tmp/ saveconfig-done-XXXXXXXXXX)"
@@ -173,8 +173,7 @@ DIRECTORY="$(<$TMP)"
 
 case "$DIRECTORY" in 
 	*floppy*)
-		DIRECTORY="$FLOPPYDIR"
-		KNOPPIXSH="$DIRECTORY/knoppix.sh"
+		KNOPPIXSH="$DIRECTORY/${FLL_DISTRO_NAME}.sh"
 		
 		while :; do
 			umountfloppy
@@ -189,7 +188,7 @@ case "$DIRECTORY" in
 		[ "$?" != "0" ] && { $DIALOG --title "$TITLE1" --msgbox "$ERROR `cat $TMP_ERR`" 10 75; bailout; }
 		mount | grep -q "$DIRECTORY.*ntfs" && { $DIALOG --title "$TITLE1" --msgbox "$ERROR NTFS" 10 75; bailout; }
 		mount -o remount,rw "$DIRECTORY"
-		KNOPPIXSH="$DIRECTORY/knoppix.sh"
+		KNOPPIXSH="$DIRECTORY/${FLL_DISTRO_NAME}.sh"
 		writescript "$KNOPPIXSH"
 		;;
 esac

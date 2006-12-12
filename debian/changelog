@@ -2,7 +2,11 @@ saveconfig (0.5.27) UNRELEASED; urgency=low
 
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue,  5 Dec 2006 13:46:44 +0100
+  * place call of su-me earlier
+  * variable DIRECTORY was filled with incorrect content
+  * renamed the saved file accordingly to distro-defaults
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Tue, 12 Dec 2006 12:32:40 +0100
 
 saveconfig (0.5.26) unstable; urgency=low
 
