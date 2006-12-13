@@ -1,6 +1,4 @@
-saveconfig (0.5.27) UNRELEASED; urgency=low
-
-  * NOT RELEASED YET
+saveconfig (0.5.27) unstable; urgency=low
 
   * place call of su-me earlier
   * variable DIRECTORY was filled with incorrect content
