@@ -1,6 +1,7 @@
-saveconfig (0.5.29) UNRELEASED; urgency=low
+saveconfig (0.5.29) ORPHANED; urgency=low
 
   * NOT RELEASED YET
+  * ORPHAN PACKAGE
 
  -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue,  2 Jan 2007 15:45:29 +0100
 
